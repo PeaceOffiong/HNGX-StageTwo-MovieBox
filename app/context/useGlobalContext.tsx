@@ -1,16 +1,19 @@
-import { createContext, ReactNode, useEffect, useState,useContext } from "react";
+"use client";
+import { createContext, useContext ,ReactNode, Dispatch, SetStateAction, useEffect, useState} from "react";
 
 type AppProviderProps = {
     children:ReactNode;
 }
 
 type contextValue = {
-    topRated: Array<any>
+    topRated: Array<any>;
 }
 
-const AppContext = createContext({})
+const AppContext = createContext<contextValue>({
+    topRated: []
+})
 
-const AppProvider = ({children} : AppProviderProps)=>{
+export const AppProvider = ({children}) =>{
     const [topRated, setTopRated] = useState([]);
 
     const fetchTopRated = async () =>{
@@ -42,4 +45,4 @@ export const useGlobalContext = () => {
     return useContext(AppContext);
 };
   
-  export { AppContext, AppProvider };
+  export { AppContext };
