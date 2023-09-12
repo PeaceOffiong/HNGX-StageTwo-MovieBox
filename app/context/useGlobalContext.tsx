@@ -1,48 +1,78 @@
 "use client";
-import { createContext, useContext ,ReactNode, Dispatch, SetStateAction, useEffect, useState} from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 type AppProviderProps = {
-    children:ReactNode;
-}
+  children: ReactNode;
+};
 
 type contextValue = {
-    topRated: Array<any>;
+  topRated: topRatedType[];
+  setTopRated: Dispatch<SetStateAction<topRatedType[]>>; // Updated type signature
+};
+
+interface topRatedType {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
 
 const AppContext = createContext<contextValue>({
-    topRated: []
-})
+  topRated: [],
+  setTopRated: (): void => {},
+});
 
-export const AppProvider = ({children}) =>{
-    const [topRated, setTopRated] = useState([]);
+export const AppProvider = ({ children }: AppProviderProps) => {
+  const [topRated, setTopRated] = useState<topRatedType[]>([]);
 
-    const fetchTopRated = async () =>{
-        try {
-            const response = await fetch("https://api.themoviedb.org/3/account/12668959/rated/movies?language=en-US&page=1&sort_by=created_at.asc");
-            const data = await response.json();
-            setTopRated(data);
-        } catch (error) {
-            console.log("data failed to fetch");
-        }
+  const fetchTopRated = async () => {
+    try {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=edcc5c287f46064d8c993eb4a03ad87c",
+      );
+      const data = await response.json();
+      setTopRated(data.results);
+    } catch (error) {
+      console.log("data failed to fetch");
     }
+  };
 
-    console.log(topRated);
+  console.log(topRated);
 
-    useEffect(() =>{
-        fetchTopRated();
-    }, [])
+  useEffect(() => {
+    fetchTopRated();
+  }, []);
 
-    const contextValue:contextValue = {
-        topRated,
-    }
+  const contextValue: contextValue = {
+    topRated,
+    setTopRated,
+  };
 
-    return (
-        <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
-    )
-}
+  return (
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
+  );
+};
 
 export const useGlobalContext = () => {
-    return useContext(AppContext);
+  return useContext(AppContext);
 };
-  
-  export { AppContext };
+
+export { AppContext };
