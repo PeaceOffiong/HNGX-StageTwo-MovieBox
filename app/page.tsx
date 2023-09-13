@@ -1,24 +1,31 @@
 "use client";
-import Image from "next/image";
 import { useGlobalContext } from "./context/useGlobalContext";
-
+import NavSection from "./components/NavSection";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { topRated } = useGlobalContext();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (topRated.length > 0) {
+      setLoading(false);
+    }
+  }, [topRated.length]);
+
+  if (loading) {
+    return <h2>Loading</h2>;
+  }
   return (
     <main>
-      <nav>
-        <div>
-          <Image src="./tv.svg" alt="logo" height="100" width="100" />
-          <h2>Movie Box</h2>
-        </div>
-        <div>
-          <input type="text" />
-          <BsSearch/>
-        </div>
-        <div></div>
-      </nav>
-      <section></section>
+      <section
+        className={`h-screen`}
+        style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/w500/${topRated[0].poster_path}")`,
+        }}
+      >
+        <NavSection />
+      </section>
     </main>
   );
 }
