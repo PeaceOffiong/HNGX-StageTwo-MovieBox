@@ -30,7 +30,9 @@ export default function Home() {
   }
 
   if (displayFetchError) {
-    return <h2 className="flex">Data failed to fetch from server, please ensure you're connected to a wifi</h2>
+    return (
+      <h2 className="flex">Data failed to fetch from server, please ensure you're connected to a wifi</h2>
+    )
   }
   return (
     <main>
