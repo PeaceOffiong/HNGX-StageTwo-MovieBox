@@ -1,9 +1,19 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@1,9..40,500&display=swap');
 
 *{
   padding:0;
   margin:0;
   box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.accessory-color{
+  background-color: rgba(190, 18, 60, 1);
+}
+
+.accessory-text{
+  color: rgba(190, 18, 60, 1);
 }
