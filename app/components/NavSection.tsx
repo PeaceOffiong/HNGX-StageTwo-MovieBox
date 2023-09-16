@@ -16,7 +16,8 @@ const NavSection = () => {
         </div>
       </div>
       <div className="text-white flex items-center justify-center md:relative md:w-2/6">
-        <input type="text" className="bg-transparent border-2 border-white rounded-lg h-10 w-full pl-4 pr-4 flex align-items justify-center text-white hidden md:block" placeholder="What do you want to watch" value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)}/>
+        <input type="text" className="bg-transparent border-2 border-white rounded-lg h-10 w-full pl-4 pr-4 flex align-items justify-center text-white hidden md:block" placeholder="What do you want to watch&quot;"
+ value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)}/>
         <div className="absolute right-25 md:right-6 accessory-color md:bg-transparent h-8 w-8 md:h-0 flex items-center justify-center rounded-full cursor-pointer">
           <BsSearch />
         </div>
