@@ -1,30 +1,46 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { getDiscoverMovies } from "../customHooks/getDiscoverMovies";
 import NavSection from "../components/NavSection";
 import MovieGrid from "../components/MovieGrid";
 import { topRatedType } from "../context/useGlobalContext";
+import { useGlobalContext } from "../context/useGlobalContext";
+import { getMoviebySearch } from "../customHooks/getMoviebySearch";
 
+const MovieSearchPage = () => {
+  const { movieSearch, setMovieSearch } = useGlobalContext();
+  const [discoveryMovieData, setDiscoveryMovieData] = useState<topRatedType[]>([]);
+  const [searchMoviesData, setSearchMoviesData] = useState<topRatedType[]>([]);
 
-const page = async () => {
-  try {
-    const movieDataResponse = await getDiscoverMovies();
-    const movieData: topRatedType[] = movieDataResponse.results;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const movieDataResponse = await getDiscoverMovies();
+        const searchDataResponse = await getMoviebySearch(movieSearch);
+        const discoveryMovies = movieDataResponse.results;
+        const searchMovies = searchDataResponse.results;
 
-    return (
-      <>
-        <section className="h-full bg-black p-6 text-white">
-          <NavSection />
-          <div className="w-full flex items-center justify-center gap-6 p-10">
-            <MovieGrid movielist={movieData} sliceNumber={30} />
-          </div>
-        </section>
-      </>
-    );
-  } catch (error) {
-    console.error("Error fetching movie data:", error);
-    return <p>Error loading movie data.</p>;
-  }
-}
+        setDiscoveryMovieData(discoveryMovies);
+        setSearchMoviesData(searchMovies);
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
 
+    fetchData();
+  }, [movieSearch]); // Run the effect when movieSearch changes
 
-export default page;
+  return (
+    <>
+      <section className="h-full bg-black md:p-6 pt-6 pb-6 pr-2 pl-2 text-white">
+        <NavSection />
+        <div className="w-full flex items-center justify-center gap-6 p-6 sm:p-10 ">
+          <MovieGrid movielist={searchMoviesData.length <= 0 ? discoveryMovieData : searchMoviesData} sliceNumber={30} />
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default MovieSearchPage;

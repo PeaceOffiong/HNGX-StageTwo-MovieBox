@@ -63,7 +63,7 @@ export default function Home() {
         </aside>
       </section>
 
-      <section className="w-full flex items-center justify-center gap-6 pt-10">
+      <section className="w-full flex items-center justify-center gap-6 pt-10 px-4 sm:px-0">
         <MovieList />
       </section>
       <FooterSection/>

@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 
+
 type AppProviderProps = {
   children: ReactNode;
 };
@@ -69,6 +70,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   useEffect(() => {
     fetchTopRated();
   }, []);
+
 
   const contextValue: contextValue = {
     topRated,

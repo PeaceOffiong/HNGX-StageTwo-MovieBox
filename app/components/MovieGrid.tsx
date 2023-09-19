@@ -8,7 +8,7 @@ interface MovieListType {
 
 const MovieGrid: React.FC<MovieListType> = ({movielist, sliceNumber}) => {
   return (
-    <ul className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 h-auto">
+    <ul className="w-full autoflow grid-cols-2 md:grid-cols-4 place-items-center gap-12 h-auto ">
       {movielist.slice(0, sliceNumber).map((movie) => {
         return <li className="w-44 h-72" key={movie.id}>
           <Card movie={movie} data-testid="movie-card" />
@@ -19,3 +19,4 @@ const MovieGrid: React.FC<MovieListType> = ({movielist, sliceNumber}) => {
 }
 
 export default MovieGrid;
+

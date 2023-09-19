@@ -1,19 +1,28 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@1,9..40,500&display=swap');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@1,9..40,500&display=swap");
 
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
-.accessory-color{
+.accessory-color {
   background-color: rgba(190, 18, 60, 1);
 }
 
-.accessory-text{
+.accessory-text {
   color: rgba(190, 18, 60, 1);
+}
+
+.favorite {
+  background-color: rgba(169, 169, 169, 0.5);
+}
+
+.autoflow {
+  display: grid;
+  grid-auto-flow: dense;
 }
